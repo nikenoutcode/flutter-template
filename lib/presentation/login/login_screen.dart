@@ -40,7 +40,13 @@ class _LoginViewState extends State<LoginView> {
       _viewModel.setPassword(_passwordController.text);
     });
 
-    _viewModel.successStreamController.stream.listen((data) {
+    _viewModel.failureSteamController.stream.listen((data) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(data as String),
+      ));
+    });
+
+      _viewModel.successStreamController.stream.listen((data) {
       // navigate to main screen
       var authenticationData = data as Authentication;
       controller.username = authenticationData.username;
